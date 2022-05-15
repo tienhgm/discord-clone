@@ -1,14 +1,26 @@
 import React from 'react';
 import { MenuIcon } from '@heroicons/react/outline';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, provider } from '../firebase';
+import { useHistory } from 'react-router';
+import { signInWithPopup } from 'firebase/auth';
 function Header() {
+  const [user] = useAuthState(auth);
+  const history = useHistory();
+  const signIn = (e: any) => {
+    e.preventDefault();
+    signInWithPopup(auth, provider)
+      .then(() => history.push('/channels'))
+      .catch((error: any) => alert(error.message));
+  };
   return (
-    <header className="flex items-center justify-between py-4 px-6 bg-discord_blue">
+    <header className="flex items-center justify-between px-6 py-4 bg-discord_blue">
       <a href="">
         <svg
           width="124"
           height="34"
           viewBox="0 0 124 34"
-          className="w-32 h-12 object-contain"
+          className="object-contain w-32 h-12"
           style={{ color: 'white' }}
         >
           <g fill="currentColor">
@@ -24,12 +36,9 @@ function Header() {
           </g>
         </svg>
       </a>
-      <div className="hidden lg:flex space-x-6 text-white">
+      <div className="hidden space-x-6 text-white lg:flex">
         <a className="link" href="">
           Download
-        </a>
-        <a className="link" href="">
-          Why Discord
         </a>
         <a className="link" href="">
           Nitro
@@ -40,12 +49,21 @@ function Header() {
         <a className="link" href="">
           Support
         </a>
+        <a className="link" href="">
+          Blog
+        </a>
+        <a className="link" href="">
+          Careers
+        </a>
       </div>
       <div className="flex space-x-4">
-        <button className="bg-white p-2 rounded-full text-xs md:text-sm px-4 focus:outline-none hover:shadow-2xl hover:text-discord_blurple transition duration-200 ease-in-out whitespace-nowrap font-medium">
-          Login
+        <button
+          className="p-2 px-4 text-xs font-medium transition duration-200 ease-in-out bg-white rounded-full md:text-sm focus:outline-none hover:shadow-2xl hover:text-discord_blurple whitespace-nowrap"
+          onClick={!user ? signIn : () => history.push('/channels')}
+        >
+          {!user ? 'Login' : 'Open discord'}
         </button>
-        <MenuIcon className='h-9 text-white cursor-pointer lg:hidden' />
+        <MenuIcon className="text-white cursor-pointer h-9 lg:hidden" />
       </div>
     </header>
   );

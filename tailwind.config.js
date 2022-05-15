@@ -10,6 +10,9 @@ module.exports = {
         discord_blurple: '#7289da',
         discord_purple: '#5865f2',
         discord_green: '#3ba55c',
+      },
+      height: {
+       "83vh": '83vh'
       }
     },
   },
