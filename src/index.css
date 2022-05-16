@@ -3,7 +3,10 @@
 @tailwind utilities;
 
 @layer components {
-    .link{
-        @apply cursor-pointer font-semibold text-sm text-white hover:underline
-    }
+  .link {
+    @apply text-sm font-semibold text-white cursor-pointer hover:underline;
+  }
+  .server-default {
+    @apply flex items-center justify-center h-12 transition-all duration-100 ease-out rounded-full cursor-pointer bg-discord_serverBg hover:rounded-2xl;
+  }
 }

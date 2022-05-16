@@ -1,22 +1,21 @@
 import React from 'react';
-import './App.css';
-import { Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import Header from './components/Header';
 import Banner from './components/Banner';
 import Home from './components/Home';
+import LandingPage from './components/LandingPage';
 
 function App() {
   return (
     <div className="App ">
-      <Switch>
-        <Route exact path="/">
-          <Header />
-          <Banner />
-        </Route>
-        <Route exact path={'/channels'}>
-          <Home />
-        </Route>
-      </Switch>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="channels" element={<Home />} />
+          <Route path={'channels/:id'} element={<Home />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

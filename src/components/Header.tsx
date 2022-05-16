@@ -2,15 +2,15 @@ import React from 'react';
 import { MenuIcon } from '@heroicons/react/outline';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, provider } from '../firebase';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { signInWithPopup } from 'firebase/auth';
 function Header() {
   const [user] = useAuthState(auth);
-  const history = useHistory();
+  let navigate = useNavigate();
   const signIn = (e: any) => {
     e.preventDefault();
     signInWithPopup(auth, provider)
-      .then(() => history.push('/channels'))
+      .then(() => navigate('/channels'))
       .catch((error: any) => alert(error.message));
   };
   return (
@@ -59,7 +59,7 @@ function Header() {
       <div className="flex space-x-4">
         <button
           className="p-2 px-4 text-xs font-medium transition duration-200 ease-in-out bg-white rounded-full md:text-sm focus:outline-none hover:shadow-2xl hover:text-discord_blurple whitespace-nowrap"
-          onClick={!user ? signIn : () => history.push('/channels')}
+          onClick={!user ? signIn : () => navigate('/channels')}
         >
           {!user ? 'Login' : 'Open discord'}
         </button>
