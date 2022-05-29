@@ -19,7 +19,12 @@ module.exports = {
         discord_iconHoverText: '#dcddde',
         discord_userSectionBg: '#292b2f',
         discord_userSectionText: '#b9bbbe',
-        discord_chatBg: '#36393f'
+        discord_chatBg: '#36393f',
+        discord_chatHeaderIcon: '#72767d',
+        discord_chatHeaderInputBg: '#202225',
+        discord_chatInputBg: '#40444b',
+        discord_chatInputText: '#dcddde',
+        discord_chatInput: '#72767d',
       },
       height: {
         '83vh': '83vh',
