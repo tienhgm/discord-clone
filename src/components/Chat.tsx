@@ -23,20 +23,20 @@ import {
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db, auth } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Message from './Message';
 function Chat() {
   const channelId = useAppSelector(selectChannelId);
   const channelName = useAppSelector(selectChannelName);
   const [user] = useAuthState(auth);
   const inputRef = useRef<any>('');
   const chatRef = useRef<any>(null);
-  const [messages] = useCollection(
+  const [messages]: any = useCollection(
     channelId &&
       query(
         collection(db, 'channels', channelId, 'messages'),
         orderBy('timestamp', 'asc')
       )
   );
-  console.log(messages);
   const scrollToBottom = () => {
     chatRef.current.scrollIntoView({
       behavior: 'smooth',
@@ -82,24 +82,26 @@ function Chat() {
         </div>
       </header>
       <main className="flex-grow overflow-y-scroll scrollbar-hide">
-        <>
-          {messages?.docs.map((doc: any) => {
-            const { message, timestamp, name, photoURL, email } = doc.data();
-
-            return (
-              <Message
-                key={doc.id}
-                id={doc.id}
-                message={message}
-                timestamp={timestamp}
-                name={name}
-                photoURL={photoURL}
-                email={email}
-              />
-            );
-          })}
-          <div ref={chatRef} className="pb-16"></div>
-        </>
+        {messages && (
+          <>
+            {messages?.docs.map((doc: any) => {
+              const { message, timestamp, name, photoUrl, emal } = doc.data();
+              console.log(doc.data())
+              return (
+                <Message
+                  key={Math.random()}
+                  id={doc.id}
+                  message={message}
+                  timestamp={timestamp}
+                  name={name}
+                  photoUrl={photoUrl}
+                  email={emal}
+                />
+              );
+            })}
+            <div ref={chatRef} className="pb-16"></div>
+          </>
+        )}
       </main>
       <div className="flex items-center p-2.5 mx-5 mb-7 rounded-lg bg-discord_chatInputBg">
         <PlusCircleIcon className="mr-4 icon" />
